@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>strftime to Go Date Format Converter</title>
+  <meta name="description" content="Simple strftime to Go Date Format Converter">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="header">
+        <h1 class="header__title">Go Date Format</h1>
+        <h2 class="header__subtitle">Because I've used <code class="header__title-code">strftime</code> a million times before</h2>
+    </header>
+
+    <div class="content">
+      <div id="converter" class="converter pure-g">
+        <div class="converter__field pure-u-1-1 pure-u-md-11-24">
+          <input id="strftime" class="converter__field-input" type="text" aria-label="Input strftime string" value="%B %e, %Y"/>
+        </div>
+        <div id="arrow" class="converter__arrow pure-u-1-1 pure-u-md-2-24">&rarr;</div>
+        <div class="converter__field pure-u-1-1 pure-u-md-11-24">
+          <input id="output" class="converter__field-input" type="text" aria-label="Go format string" readonly value=""/>
+        </div>
+      </div>
+
+      <div id="definitions" class="definitions pure-g">
+        <div class="definition__box pure-u-1-1 pure-u-md-12-24">
+          <dl class="definition__list">
+            <dt class="definition__name">%a</dt>
+            <dd class="definition__description pure-u-16-24">The abbreviated weekday name (&quot;Sun&quot;)</dd>
+            <dt class="definition__name">%A</dt>
+            <dd class="definition__description pure-u-16-24">The full weekday name (&quot;Sunday&quot;)</dd>
+            <dt class="definition__name">%b</dt>
+            <dd class="definition__description pure-u-16-24">The abbreviated month name (&quot;Jan&quot;)</dd>
+            <dt class="definition__name">%B</dt>
+            <dd class="definition__description pure-u-16-24">The full month name (&quot;January&quot;)</dd>
+            <dt class="definition__name">%d</dt>
+            <dd class="definition__description pure-u-16-24">Day of the month (01..31)</dd>
+            <dt class="definition__name">%e</dt>
+            <dd class="definition__description pure-u-16-24">Day of the month with a leading blank instead of zero (1..31)</dd>
+            <dt class="definition__name">%m</dt>
+            <dd class="definition__description pure-u-16-24">Month of the year (01..12)</dd>
+            <dt class="definition__name">%y</dt>
+            <dd class="definition__description pure-u-16-24">Year without a century (00..99)</dd>
+            <dt class="definition__name">%Y</dt>
+            <dd class="definition__description pure-u-16-24">Year with century</dd>
+          </dl>
+        </div>
+        <div class="definition__box pure-u-1-1 pure-u-md-12-24">
+          <dl class="definition__list">
+            <dt class="definition__name">%H</dt>
+            <dd class="definition__description pure-u-16-24">Hour of the day, 24-hour clock (00..23)</dd>
+            <dt class="definition__name">%I</dt>
+            <dd class="definition__description pure-u-16-24">Hour of the day, 12-hour clock (01..12)</dd>
+            <dt class="definition__name">%l</dt>
+            <dd class="definition__description pure-u-16-24">Hour of the day, 12-hour clock without a leading zero (1..12)</dd>
+            <dt class="definition__name">%M</dt>
+            <dd class="definition__description pure-u-16-24">Minute of the hour (00..59)</dd>
+            <dt class="definition__name">%P</dt>
+            <dd class="definition__description pure-u-16-24">Meridian indicator (&quot;am&quot; or &quot;pm&quot;)</dd>
+            <dt class="definition__name">%p</dt>
+            <dd class="definition__description pure-u-16-24">Meridian indicator (&quot;AM&quot; or &quot;PM&quot;)</dd>
+            <dt class="definition__name">%S</dt>
+            <dd class="definition__description pure-u-16-24">Second of the minute (00..60)</dd>
+            <dt class="definition__name">%z</dt>
+            <dd class="definition__description pure-u-16-24">Time zone hour and minute offset from UTC</dd>
+            <dt class="definition__name">%Z</dt>
+            <dd class="definition__description pure-u-16-24">Time zone name</dd>
+            <dt class="definition__name">%%</dt>
+            <dd class="definition__description pure-u-16-24">Literal &quot;%&quot; character</dd>
+          </dl>
+        </div>
+      </div>
+
+      <div id="unsupported" class="unsupported pure-g">
+        <h4 class="unsupported__title pure-u-1-1">Codes not natively supported in Go</h4>
+        <div class="pure-u-1-1 pure-u-md-12-24">
+          <dl class="unsupported__list">
+            <dt class="unsupported__name">%j</dt>
+            <dd class="unsupported__description pure-u-16-24">Day of the year (001..366)<br>use <a href="https://godoc.org/time#Time.YearDay">YearDay()</a> instead</dd>
+            <dt class="unsupported__name">%U</dt>
+            <dd class="unsupported__description pure-u-16-24">Week number of the current year, starting with the first Sunday as the first day of the first week (00..53)</dd>
+            <dt class="unsupported__name">%W</dt>
+            <dd class="unsupported__description pure-u-16-24">Week number of the current year, starting with the first Monday as the first day of the first week (00..53)<br>use <a href="https://godoc.org/time#Time.ISOWeek">ISOWeek()</a> instead</dd>
+            <dt class="unsupported__name">%w</dt>
+            <dd class="unsupported__description pure-u-16-24">Day of the week (Sunday is 0, 0..6)<br>use <a href="https://godoc.org/time#Time.Weekday">Weekday()</a> instead</dd>
+          </dl>
+        </div>
+        <div class="pure-u-1-1 pure-u-md-12-24">
+          <dl class="unsupported__list">
+            <dt class="unsupported__name">%X</dt>
+            <dd class="unsupported-definition__description pure-u-16-24">Preferred representation for the time alone, no date</dd>
+            <dt class="unsupported-definition__name">%x</dt>
+            <dd class="unsupported-definition__description pure-u-16-24">Preferred representation for the date alone, no time</dd>
+            <dt class="unsupported-definition__name">%c</dt>
+            <dd class="unsupported-definition__description pure-u-16-24">The preferred local date and time representation</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <p class="footer__copyright">©&#160;2019&#160;GoDateTime.com</p>
+      <p class="footer__notice">This is polite version of <a href="" target="_blank" rel="license noopener">another similar repository</a>. <span>Code licensed under <a href="https://github.com/Vimux/godatetime/blob/master/LICENSE" target="_blank" rel="license noopener">MIT</a>.</span></p>
+    </footer>
+<script src="main.js"></script>
+</body>
+</html>
